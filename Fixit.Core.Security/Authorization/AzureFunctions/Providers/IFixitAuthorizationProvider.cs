@@ -6,6 +6,6 @@ namespace Fixit.Core.Security.Authorization.AzureFunctions.Providers
 {
   public interface IFixitAuthorizationProvider
   {
-    Task<bool> ValidateRequestAsync(ClaimsPrincipal claimsPricipal, FixitAccessAttribute empowerAccessAttribute);
+    Task<bool> AuthorizeAsync(ClaimsPrincipal claimsPricipal, FixitAccessAttribute empowerAccessAttribute);
   }
 }

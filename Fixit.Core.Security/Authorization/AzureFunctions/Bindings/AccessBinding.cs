@@ -26,13 +26,13 @@ namespace Fixit.Core.Security.Authorization.AzureFunctions.Bindings
 
     public Task<IValueProvider> BindAsync(BindingContext context)
     {
-      // Get the HTTP request
+      // get the HTTP request
       var request = context.BindingData["httpRequest"] as HttpRequest;
 
-      // Get the configuration files for the OAuth token issuer
+      // get the configuration items set for the OAuth token issuer
       var authValidationInformation = JObject.Parse(Environment.GetEnvironmentVariable("AuthorizationValidation"));
 
-      return Task.FromResult<IValueProvider>(new FixitAccessValueProvider(request, (claimsPrincipal) => _fixitAuthorizationProvider.ValidateRequestAsync(claimsPrincipal, _fixitAccessAttribute), authValidationInformation));
+      return Task.FromResult<IValueProvider>(new FixitAccessValueProvider(request, (claimsPrincipal) => _fixitAuthorizationProvider.AuthorizeAsync(claimsPrincipal, _fixitAccessAttribute), authValidationInformation));
     }
 
     public bool FromAttribute => true;

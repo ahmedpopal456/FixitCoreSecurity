@@ -69,7 +69,8 @@ namespace Fixit.Core.Security.Authorization.AzureFunctions.Access.Local
           };
 
           result = handler.ValidateToken(plainToken, tokenParams, out var securityToken);
-
+          
+          // then validate whether has proper accesses to the route
           if (_authorizationValidator.Invoke(result).Result && result != null)
           {
             empowerAccess = AccessResult.Success(plainToken, result);
